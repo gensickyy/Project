@@ -1,5 +1,5 @@
 import React, {FC, useEffect} from 'react';
-import {View, Text, ScrollView} from 'react-native';
+import {View, Text, ScrollView, FlatList} from 'react-native';
 import styles from '../../assets/styles';
 import {Store} from '../../redux/reducers';
 import {connect} from 'react-redux';
@@ -24,18 +24,20 @@ const Feeds: FC<Props> = props => {
     getFeeds().then(() => {});
   }, [getFeeds]);
 
+  const renderItem = ({item}: {item: IFeed}) => (
+    <Feed key={item.id} feed={item} />
+  );
+
   return (
     <View style={[mainStyle, styles.feed]}>
       {feeds.length ? (
-        <ScrollView
-          scrollEventThrottle={16}
-          showsHorizontalScrollIndicator={false}>
-          <View>
-            {feeds.map(feed => (
-              <Feed key={feed.id} feed={feed} />
-            ))}
-          </View>
-        </ScrollView>
+        <FlatList
+        data={feeds}
+        renderItem={renderItem}
+        keyExtractor={item => item.id}
+      /> 
+      
+        
       ) : (
         <View style={styles.emptyScreen}>
           <Text style={styles.h2}>Empty</Text>
