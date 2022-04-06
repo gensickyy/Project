@@ -11,10 +11,10 @@ import {THEMES} from '../../constants';
 import useTheme from '../../hooks/useTheme';
 import AsyncStorage from '@react-native-community/async-storage';
 
-interface Props {
-  login: (data: ILogin) => Promise<ResponseJson>;
-  navigation: any;
-}
+// interface Props {
+//   login: (data: ILogin) => Promise<ResponseJson>;
+//   navigation: any;
+// }
 
 const Login: FC<Props> = props => {
   const {login, navigation} = props;
@@ -24,6 +24,7 @@ const Login: FC<Props> = props => {
       getLogin().then(value => {
         if (value) {
           navigation.navigate('Home');
+          //TODDO: CHANGE
         }
       });
     }, [navigation]);
